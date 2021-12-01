@@ -157,7 +157,7 @@ mod tests {
             let qty_without_fees = tier.remove_taker_fee(qty);
             let required_fee = tier.taker_fee(qty_without_fees) as i128;
             let actual_fee = qty as i128 - qty_without_fees as i128;
-            assert!([required_fee + 1, required_fee].contains(&actual_fee),
+            assert!([required_fee + 1, required_fee].contains(&actual_fee), //array of required fee +1, required fee would not contain the address of actual fee
                     "actual_fee = {}, required_fee = {}",
                     actual_fee, required_fee);
         }
@@ -166,7 +166,7 @@ mod tests {
         fn test_add_remove_fees(tier: FeeTier, qty in 1..=(std::u64::MAX >> 1)) {
             let qty_with_fees = qty + tier.taker_fee(qty);
             let qty2 = tier.remove_taker_fee(qty_with_fees);
-            assert!([-1, 0, 1].contains(&(qty as i128 - qty2 as i128)))
+            assert!([-1, 0, 1].contains(&(qty as i128 - qty2 as i128))) //array of -1, 0, 1 contains the address of 0
         }
     }
 }
